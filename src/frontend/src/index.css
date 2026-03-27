@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/assets/fonts/Satoshi.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    /* CRED Dark Theme — near-pure black, warm gold accent */
+    --background: 7% 0.005 285;
+    --foreground: 94% 0.005 75;
+    --card: 10% 0.006 285;
+    --card-foreground: 94% 0.005 75;
+    --popover: 12% 0.007 285;
+    --popover-foreground: 94% 0.005 75;
+    /* Gold/Cream primary — CRED signature */
+    --primary: 77% 0.09 78;
+    --primary-foreground: 8% 0.005 285;
+    /* Silver/muted white secondary */
+    --secondary: 60% 0.008 285;
+    --secondary-foreground: 8% 0.005 285;
+    --muted: 14% 0.007 285;
+    --muted-foreground: 52% 0.008 285;
+    --accent: 77% 0.09 78;
+    --accent-foreground: 8% 0.005 285;
+    --destructive: 55% 0.22 25;
+    --destructive-foreground: 97% 0.005 265;
+    --border: 17% 0.006 285;
+    --input: 16% 0.006 285;
+    --ring: 77% 0.09 78;
+    --success: 65% 0.15 145;
+    --warning: 75% 0.13 65;
+    --chart-1: 77% 0.09 78;
+    --chart-2: 60% 0.008 285;
+    --chart-3: 65% 0.15 145;
+    --chart-4: 55% 0.22 25;
+    --chart-5: 70% 0.05 200;
+    --sidebar: 9% 0.006 285;
+    --sidebar-foreground: 94% 0.005 75;
+    --sidebar-primary: 77% 0.09 78;
+    --sidebar-primary-foreground: 8% 0.005 285;
+    --sidebar-accent: 14% 0.007 285;
+    --sidebar-accent-foreground: 94% 0.005 75;
+    --sidebar-border: 17% 0.006 285;
+    --sidebar-ring: 77% 0.09 78;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Satoshi", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    color-scheme: dark;
+    background: oklch(7% 0.005 285);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(var(--muted-foreground) / 0.3);
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+
+  /* Glass card — CRED dark glass with gold border hint */
+  .glass-card {
+    background: oklch(10% 0.006 285 / 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid oklch(77% 0.09 78 / 0.12);
+    box-shadow: 0 8px 32px oklch(0% 0 0 / 0.6), inset 0 1px 0
+      oklch(77% 0.09 78 / 0.08);
+  }
+
+  /* Solid surface card */
+  .surface-card {
+    background: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    box-shadow: 0 4px 24px oklch(0% 0 0 / 0.5), 0 0 0 1px
+      oklch(77% 0.09 78 / 0.04);
+  }
+
+  /* Gold glow on primary elements */
+  .glow-primary {
+    box-shadow: 0 0 24px oklch(77% 0.09 78 / 0.18), 0 0 48px
+      oklch(77% 0.09 78 / 0.06);
+  }
+
+  /* Silver glow */
+  .glow-secondary {
+    box-shadow: 0 0 20px oklch(60% 0.008 285 / 0.25);
+  }
+
+  /* Gold gradient text — CRED signature hero numbers */
+  .gradient-text {
+    background: linear-gradient(135deg, oklch(88% 0.1 78), oklch(68% 0.09 70));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Silver gradient text */
+  .gradient-text-silver {
+    background: linear-gradient(
+      135deg,
+      oklch(75% 0.01 285),
+      oklch(55% 0.008 285)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Animated progress bar */
+  .progress-bar {
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Button tap micro-interaction */
+  .bounce-tap {
+    transition: transform 100ms ease;
+  }
+  .bounce-tap:active {
+    transform: scale(0.95);
+  }
+
+  /* Card hover lift */
+  .card-lift {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Success checkmark animation */
+  @keyframes scale-in {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .animate-scale-in {
+    animation: scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  /* Pulsing gold glow for FAB */
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 16px oklch(77% 0.09 78 / 0.25);
+    }
+    50% {
+      box-shadow: 0 0 32px oklch(77% 0.09 78 / 0.45);
+    }
+  }
+  .glow-pulse {
+    animation: glow-pulse 2.5s ease-in-out infinite;
+  }
+}
